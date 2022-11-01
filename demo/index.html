@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>tfa-chart demo</title>
+    <meta name="viewport" content="width=620,user-scalable=no">
+    <link rel="stylesheet" href="./semantic/dist/semantic.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.css" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.js"></script>
+    <script src="./semantic/dist/semantic.js"></script>
+    <script src="./spectrum-colorpicker/spectrum.js"></script>
+    <link href="../build/tfa-chart-lib/index.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>New Trading Chart<button onclick="createChart()">Create</button><button onclick="deleteChart()">Delete</button>
+    </h1>
+    <div id="chart" style="border:1px solid green"></div>
+    <script src="../build/tfa-chart-lib/index.js"></script>
+    <script>
+        var tfaChart = window.TfaChart.default;
+        var lib = null;
+
+        var x = 2;
+         var y = 4;
+         if ((y> x || y++ ==4) && ++y ==5) {
+             x = 1;
+         } else {
+             x = 4;
+         }
+         console.log(x, y);
+
+        function deleteChart() {
+            lib.loadChart('5ec886e350091a2bc884832f')
+        }
+
+        function createChart() {
+            const dWidth = window.innerWidth * 0.98;
+            const dHeight = window.innerHeight * 0.98;
+            lib = new tfaChart.App('chart', {
+                // _id: "5ec7fc44dd0ad4049469fea3",
+                height: 900,
+                ownerId: 0,
+                ownerName: 'traders',
+                writerId: 0,
+                writerName: 'traders',
+                callFn: {
+                    analized: function (res) {
+                        console.log('after analized', res);
+                    },
+                    suggest: function (res) {
+                        console.log('after suggested', res);
+                    },
+                    loaded: function (flag) {
+                        console.log(flag);
+                    },
+                    updateSignal: function (idea) {
+                        console.log('idea updated', idea);
+                    }
+                },
+                topToolbar: {
+                    enableSave: true,
+                    intervals: []
+                },
+                socket: {
+                    enable: false,
+                },
+                collaborate: {
+                    visible: true,
+                    enable: true,
+                    role: [0, 0],
+                    viewers: [],
+                    editors: []
+                },
+                signalUsed: [{
+                    used: true,
+                    created: 1590164700000
+                }, {
+                    used: true,
+                    created: 1590166810000
+                }, {
+                    used: false,
+                    created: 0
+                }, {
+                    used: false,
+                    created: 0
+                }, {
+                    used: false,
+                    created: 0
+                }, {
+                    used: false,
+                    created: 0
+                }, {
+                    used: false,
+                    created: 0
+                }],
+                enableNewChart: true,
+                analyzeShapes: 'analysis',
+                analyzeEnable: true,
+                candidators: [],
+                hostUrl: 'http://localhost:8000',
+                dataUrl: '/api/history',
+                screenshotUrl: '/api/snapshot',
+                chartUrl: '/api/charts',
+                token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiJrTkpBMy5IPUhsbXxfdUxvbFItK3YrTWxQfS1xOm18JVRKQS05SUNZMDpuOUk5UEdNfFVlO0JBSyB8Z1h7KiBBIiwiaWF0IjoxNTc3NDU3ODcwfQ.mzMSckujaeEJZ0NHnBvh7wmEgBI55Gls1T83jlooa48',
+                controlling: {
+                    deleteAll: false
+                },
+                chat: {
+                    happened: {
+                        text: 'hello world',
+                        html: '<div><!--block-->text&nbsp;<a class="post-binding" style="color: orange; cursor: pointer" ng-mouseover="highLightWithDesc($event)" ng-mouseout="highOutWithDesc($event)" options="82902d5f-67df-4367-8752-7783e507d22c">area</a>&nbsp;and please focus on&nbsp;<a class="post-binding" style="color: orange; cursor: pointer" ng-mouseover="highLightWithDesc($event)" ng-mouseout="highOutWithDesc($event)" options="d7c08522-8c5d-494e-961f-3b9be13b3656:2">inter support</a></div>'
+                    },
+                    expected: {
+                        text: 'world',
+                        html: '<div><a class="post-binding">world</a></div>'
+                    }
+                },
+                priceFeed: {
+                    accountId: '001-011-1432621-009',
+                    token: '6a0d853fedb46aa3252920d0af2f67b0-83da48312d4a6942d204a0c224879834'
+                },
+                domain: 'pdf-portal',
+            });
+            console.log('app', lib);
+        }
+    </script>
+</body>
+
+</html>
